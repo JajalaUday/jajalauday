@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Uday Jajala — Full Stack Java Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #16161f;
+  --surface: #1c1c28;
+  --surface2: #232334;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #f0f0f8;
+  --text2: #9898b0;
+  --text3: #5c5c78;
+  --accent: #6c63ff;
+  --accent2: #a78bfa;
+  --teal: #2dd4bf;
+  --teal2: #99f6e4;
+  --amber: #f59e0b;
+  --amber2: #fcd34d;
+  --coral: #f97316;
+  --green: #22c55e;
+  --pink: #ec4899;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* Noise overlay */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none;z-index:0}
+
+/* Grid background */
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(108,99,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(108,99,255,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--text);letter-spacing:-0.02em}
+.nav-logo span{color:var(--accent2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.8rem;color:var(--text2);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{background:var(--accent);color:#fff;padding:0.45rem 1.1rem;border-radius:6px;font-size:0.8rem;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:background 0.2s,transform 0.15s}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+
+/* Sections */
+section{position:relative;z-index:1}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 4rem;max-width:1100px;margin:0 auto}
+.hero-inner{width:100%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.25);border-radius:100px;padding:0.35rem 1rem;font-size:0.78rem;font-weight:500;color:var(--accent2);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1.75rem;animation:fadeUp 0.6s ease both}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+.hero h1{font-family:var(--font-display);font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.04em;margin-bottom:1.5rem;animation:fadeUp 0.6s 0.1s ease both;opacity:0}
+.hero h1 .line1{display:block;color:var(--text)}
+.hero h1 .line2{display:block;background:linear-gradient(135deg,var(--accent2),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.1rem;color:var(--text2);max-width:560px;line-height:1.75;margin-bottom:2.5rem;font-weight:300;animation:fadeUp 0.6s 0.2s ease both;opacity:0}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp 0.6s 0.3s ease both;opacity:0}
+.btn-primary{background:var(--accent);color:#fff;padding:0.75rem 1.75rem;border-radius:8px;font-size:0.9rem;font-weight:600;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,99,255,0.35)}
+.btn-secondary{background:transparent;color:var(--text);padding:0.75rem 1.75rem;border-radius:8px;font-size:0.9rem;font-weight:500;text-decoration:none;border:1px solid var(--border2);transition:all 0.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:3rem;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);animation:fadeUp 0.6s 0.4s ease both;opacity:0;flex-wrap:wrap}
+.stat-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1}
+.stat-label{font-size:0.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb1{width:500px;height:500px;background:rgba(108,99,255,0.12);top:-100px;right:-100px}
+.orb2{width:350px;height:350px;background:rgba(45,212,191,0.08);bottom:100px;left:-50px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* Section layout */
+.section-wrap{max-width:1100px;margin:0 auto;padding:5rem 2rem}
+.section-header{margin-bottom:3rem}
+.section-tag{font-family:var(--font-mono);font-size:0.72rem;color:var(--teal);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.6rem;display:block}
+.section-title{font-family:var(--font-display);font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-0.03em;line-height:1.1}
+
+/* Skills */
+.skills-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border)}
+.skill-card{background:var(--bg2);padding:2rem;transition:background 0.2s}
+.skill-card:hover{background:var(--surface)}
+.skill-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:1rem}
+.skill-cat{font-family:var(--font-display);font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;color:var(--text)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:0.72rem;font-weight:500;padding:3px 9px;border-radius:4px;font-family:var(--font-mono);letter-spacing:0.02em}
+.tag-purple{background:rgba(108,99,255,0.15);color:var(--accent2);border:1px solid rgba(108,99,255,0.2)}
+.tag-teal{background:rgba(45,212,191,0.1);color:var(--teal2);border:1px solid rgba(45,212,191,0.15)}
+.tag-amber{background:rgba(245,158,11,0.1);color:var(--amber2);border:1px solid rgba(245,158,11,0.15)}
+.tag-coral{background:rgba(249,115,22,0.1);color:#fdba74;border:1px solid rgba(249,115,22,0.15)}
+.tag-gray{background:rgba(255,255,255,0.05);color:var(--text2);border:1px solid var(--border)}
+.tag-green{background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.15)}
+
+/* Experience */
+.exp-timeline{display:flex;flex-direction:column;gap:0}
+.exp-item{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:3rem 0;border-bottom:1px solid var(--border);position:relative}
+.exp-item:last-child{border-bottom:none}
+.exp-item::before{content:'';position:absolute;left:200px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--border2),transparent)}
+.exp-date{padding-top:4px}
+.exp-date-text{font-family:var(--font-mono);font-size:0.72rem;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;line-height:1.8}
+.exp-company{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:var(--text);margin-top:6px}
+.exp-logo{width:36px;height:36px;border-radius:8px;margin-top:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:var(--font-display)}
+.exp-content{padding-left:3rem}
+.exp-role{font-family:var(--font-display);font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem}
+.exp-location{font-size:0.8rem;color:var(--text3);margin-bottom:1rem;font-family:var(--font-mono);letter-spacing:0.04em}
+.exp-desc{font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:1rem}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:1.25rem}
+.exp-bullets li{font-size:0.85rem;color:var(--text2);padding-left:1.2rem;position:relative;line-height:1.65}
+.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:0.7rem;top:5px}
+.exp-tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Project */
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color 0.2s,transform 0.2s}
+.project-card:hover{border-color:rgba(108,99,255,0.35);transform:translateY(-4px)}
+.project-header{padding:2rem 2rem 0;display:flex;justify-content:space-between;align-items:flex-start}
+.project-badge{font-family:var(--font-mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;padding:4px 10px;border-radius:4px;background:rgba(108,99,255,0.15);color:var(--accent2);border:1px solid rgba(108,99,255,0.2)}
+.project-title{font-family:var(--font-display);font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin:1rem 0 0.5rem;padding:0 2rem}
+.project-desc{font-size:0.9rem;color:var(--text2);line-height:1.75;padding:0 2rem 1.5rem}
+.project-arch{margin:0 2rem 1.5rem;background:var(--bg3);border-radius:10px;padding:1.5rem;border:1px solid var(--border);font-family:var(--font-mono);font-size:0.75rem;color:var(--text2);line-height:2.2;overflow-x:auto;white-space:pre}
+.arch-accent{color:var(--teal)}
+.arch-accent2{color:var(--accent2)}
+.arch-accent3{color:var(--amber)}
+.project-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.highlight-item{background:var(--surface);padding:1.25rem 1.5rem}
+.highlight-label{font-size:0.7rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px}
+.highlight-val{font-size:0.85rem;color:var(--text);line-height:1.5}
+
+/* Pipeline */
+.pipeline-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.pipeline-track{display:flex;flex-direction:column;gap:0;position:relative}
+.pipeline-track::before{content:'';position:absolute;left:23px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--teal),var(--amber))}
+.pipeline-step{display:flex;gap:2rem;align-items:flex-start;padding:1.5rem 0;position:relative}
+.p-num{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.85rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;border:2px solid}
+.p-content{flex:1;padding-top:8px}
+.p-title{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:3px}
+.p-desc{font-size:0.83rem;color:var(--text2);line-height:1.65}
+.p-badge{display:inline-flex;align-items:center;gap:5px;font-size:0.7rem;font-family:var(--font-mono);padding:2px 8px;border-radius:4px;margin-top:6px;background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.2)}
+
+/* Education */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.edu-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.75rem;position:relative;overflow:hidden}
+.edu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.edu-card.masters::before{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.edu-card.bachelors::before{background:linear-gradient(90deg,var(--teal),var(--green))}
+.edu-degree{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:4px;letter-spacing:-0.01em}
+.edu-school{font-size:0.85rem;color:var(--text2);margin-bottom:8px}
+.edu-year{font-family:var(--font-mono);font-size:0.72rem;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase}
+
+/* Contact */
+.contact-section{background:linear-gradient(135deg,rgba(108,99,255,0.08),rgba(45,212,191,0.05))}
+.contact-inner{text-align:center;padding:6rem 2rem;max-width:700px;margin:0 auto}
+.contact-inner h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.04em;margin-bottom:1rem}
+.contact-inner p{color:var(--text2);font-size:1rem;line-height:1.75;margin-bottom:2.5rem}
+.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.contact-link{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:0.85rem 1.5rem;font-size:0.9rem;color:var(--text);text-decoration:none;transition:all 0.2s;font-weight:500}
+.contact-link:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px);background:rgba(45,212,191,0.05)}
+.contact-link svg{width:18px;height:18px;flex-shrink:0}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:0.78rem;color:var(--text3);font-family:var(--font-mono)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* Responsive */
+@media(max-width:768px){
+  .exp-item{grid-template-columns:1fr}
+  .exp-item::before{display:none}
+  .exp-content{padding-left:0}
+  .exp-date{padding-bottom:0.5rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+  .nav-links{display:none}
+  .project-highlights{grid-template-columns:1fr}
+  .hero-stats{gap:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">UJ<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#pipeline">CI/CD</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:udaychari428@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- Hero -->
+<section>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Available for opportunities</div>
+      <h1>
+        <span class="line1">Uday Jajala</span>
+        <span class="line2">Full Stack<br>Java Dev</span>
+      </h1>
+      <p class="hero-desc">7 years building production-grade microservices, cloud-native platforms, and real-time Angular frontends. Currently architecting a loan evaluation system at Citi Bank.</p>
+      <div class="hero-actions">
+        <a href="#project" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          View My Work
+        </a>
+        <a href="#contact" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+          Get in Touch
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div>
+          <div class="stat-num">85%+</div>
+          <div class="stat-label">Test Coverage</div>
+        </div>
+        <div>
+          <div class="stat-num">M.S.</div>
+          <div class="stat-label">Computer Science</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="skills-section">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-tag">// tech stack</span>
+      <h2 class="section-title">What I Build With</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-icon" style="background:rgba(108,99,255,0.12)">☕</div>
+        <div class="skill-cat">Backend</div>
+        <div class="skill-tags">
+          <span class="tag tag-purple">Java</span>
+          <span class="tag tag-purple">Spring Boot</span>
+          <span class="tag tag-purple">Spring Security</span>
+          <span class="tag tag-purple">Spring JPA</span>
+          <span class="tag tag-purple">Hibernate</span>
+          <span class="tag tag-purple">Microservices</span>
+          <span class="tag tag-purple">REST APIs</span>
+          <span class="tag tag-purple">JWT / OAuth2</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background:rgba(236,72,153,0.12)">◈</div>
+        <div class="skill-cat">Frontend</div>
+        <div class="skill-tags">
+          <span class="tag tag-coral">Angular 14/16</span>
+          <span class="tag tag-coral">TypeScript</span>
+          <span class="tag tag-coral">RxJS</span>
+          <span class="tag tag-coral">WebSockets</span>
+          <span class="tag tag-coral">HTML/CSS</span>
+          <span class="tag tag-coral">Bootstrap</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background:rgba(245,158,11,0.12)">⬡</div>
+        <div class="skill-cat">Cloud & DevOps</div>
+        <div class="skill-tags">
+          <span class="tag tag-amber">AWS S3</span>
+          <span class="tag tag-amber">EC2</span>
+          <span class="tag tag-amber">EKS</span>
+          <span class="tag tag-amber">Lambda</span>
+          <span class="tag tag-amber">DynamoDB</span>
+          <span class="tag tag-amber">CloudWatch</span>
+          <span class="tag tag-gray">Docker</span>
+          <span class="tag tag-gray">Kubernetes</span>
+          <span class="tag tag-gray">Jenkins</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background:rgba(45,212,191,0.12)">◉</div>
+        <div class="skill-cat">Messaging & Databases</div>
+        <div class="skill-tags">
+          <span class="tag tag-teal">Apache Kafka</span>
+          <span class="tag tag-teal">Oracle DB</span>
+          <span class="tag tag-teal">MongoDB</span>
+          <span class="tag tag-teal">Neo4j</span>
+          <span class="tag tag-teal">SQL Server</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background:rgba(34,197,94,0.12)">✓</div>
+        <div class="skill-cat">Testing & Quality</div>
+        <div class="skill-tags">
+          <span class="tag tag-green">JUnit</span>
+          <span class="tag tag-green">Mockito</span>
+          <span class="tag tag-green">JaCoCo</span>
+          <span class="tag tag-green">SonarQube</span>
+          <span class="tag tag-green">Postman</span>
+          <span class="tag tag-green">RestAssured</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background:rgba(255,255,255,0.06)">⚡</div>
+        <div class="skill-cat">Methodologies</div>
+        <div class="skill-tags">
+          <span class="tag tag-gray">Agile / Scrum</span>
+          <span class="tag tag-gray">CI/CD</span>
+          <span class="tag tag-gray">TDD</span>
+          <span class="tag tag-gray">Code Reviews</span>
+          <span class="tag tag-gray">Splunk</span>
+          <span class="tag tag-gray">Snyk</span>
+          <span class="tag tag-gray">SonarQube</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Project -->
+<section id="project">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-tag">// featured project</span>
+      <h2 class="section-title">Loan Evaluation Platform</h2>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-header">
+        <span class="project-badge">Citi Bank · 2025 – Present</span>
+      </div>
+      <div class="project-title">Enterprise Loan Evaluation Microservices</div>
+      <p class="project-desc">A full-scale platform for evaluating Home, Auto, and Personal loan applications. Built on event-driven microservices with real-time Angular dashboards, AWS-native infrastructure, and zero-downtime blue/green deployments.</p>
+      <div class="project-arch"><span class="arch-accent">Customer Browser</span>  →  Angular 16 (WebSocket + Drag-Drop Upload)
+        ↓
+<span class="arch-accent2">API Gateway</span>  →  JWT Auth / Spring Security
+        ↓
+┌─────────────────────────────────────────────────────────┐
+│  <span class="arch-accent">Customer</span>   <span class="arch-accent">Loan Calc</span>   <span class="arch-accent">Document</span>   <span class="arch-accent">Audit</span>   <span class="arch-accent">Payment</span>  │
+│  Service     Service      Service    Service  Service   │
+└─────────────────────────────────────────────────────────┘
+        ↕  <span class="arch-accent2">Apache Kafka</span> (async events)
+        ↓
+<span class="arch-accent3">AWS S3</span> (encrypted)   <span class="arch-accent3">DynamoDB Streams</span>   <span class="arch-accent3">Lambda</span> (virus scan)</div>
+      <div class="project-highlights">
+        <div class="highlight-item">
+          <div class="highlight-label">Real-time frontend</div>
+          <div class="highlight-val">WebSocket loan status updates + drag-and-drop document portal with inline PDF/image preview</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-label">Document pipeline</div>
+          <div class="highlight-val">Multipart upload API → Lambda virus scan → S3 server-side encryption → status tracking</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-label">Event-driven architecture</div>
+          <div class="highlight-val">Kafka decouples upload/audit from core loan flow; DynamoDB Streams trigger notifications</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-label">Zero-downtime deploys</div>
+          <div class="highlight-val">Blue/green strategy on EKS — instant ALB switch with immediate rollback capability</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-tag">// work history</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="exp-timeline">
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-text">Jun 2025 — Present</div>
+          <div class="exp-company">Citi Bank</div>
+          <div class="exp-logo" style="background:rgba(0,120,212,0.15);color:#60a5fa">CB</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Full Stack Java Developer</div>
+          <div class="exp-location">📍 USA</div>
+          <div class="exp-desc">Leading backend and frontend development for an enterprise loan evaluation platform with microservices architecture, Kafka event streaming, and AWS-native infrastructure.</div>
+          <ul class="exp-bullets">
+            <li>Built loan product logic for Home, Auto & Personal loans with live interest rate API integration</li>
+            <li>Designed multipart file upload APIs (PDF, JPEG, PNG, DOC) integrated with AWS S3 encryption</li>
+            <li>Angular 16 real-time dashboard with WebSocket status updates and notification center</li>
+            <li>Lambda virus scanning, DynamoDB Streams for notifications, CloudWatch dashboards</li>
+            <li>Implemented JWT stateless auth, deployed on EKS with auto-scaling and ALB</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag tag-purple">Spring Boot</span>
+            <span class="tag tag-teal">Kafka</span>
+            <span class="tag tag-amber">AWS EKS</span>
+            <span class="tag tag-coral">Angular 16</span>
+            <span class="tag tag-green">Jenkins</span>
+            <span class="tag tag-gray">Docker</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-text">Jan 2024 — May 2025</div>
+          <div class="exp-company">CVS Pharmacy</div>
+          <div class="exp-logo" style="background:rgba(239,68,68,0.1);color:#fca5a5">CV</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Java Developer</div>
+          <div class="exp-location">📍 USA</div>
+          <div class="exp-desc">Focused on event-driven microservices architecture with Kafka. Used Splunk to trace and reprocess failed messages via offset IDs. Introduced Neo4j graph database modeling for complex relationship data.</div>
+          <ul class="exp-bullets">
+            <li>Designed Kafka producers/consumers for high-volume event streaming with fault-tolerant consumer groups</li>
+            <li>Splunk-based Kafka failure debugging — offset-level reprocessing logic</li>
+            <li>Neo4j integration with Cypher queries inside Spring Boot microservices</li>
+            <li>Containerized microservices with Docker, deployed on Kubernetes via Jenkins CI/CD</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag tag-teal">Kafka</span>
+            <span class="tag tag-gray">Neo4j</span>
+            <span class="tag tag-amber">Kubernetes</span>
+            <span class="tag tag-gray">Splunk</span>
+            <span class="tag tag-purple">Spring Security</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-text">Aug 2021 — Jul 2023</div>
+          <div class="exp-company">KIA Motors</div>
+          <div class="exp-logo" style="background:rgba(245,158,11,0.1);color:#fcd34d">KM</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Full Stack Java Developer</div>
+          <div class="exp-location">📍 India</div>
+          <div class="exp-desc">Built customer-facing web applications at scale. Collaborated with design team to deliver UI improvements that increased user engagement by 20%.</div>
+          <ul class="exp-bullets">
+            <li>20% user engagement increase through Angular UI optimizations with design team</li>
+            <li>AWS Lambda serverless workflows reducing operational overhead</li>
+            <li>SQL Server database objects — tables, views, stored procedures, triggers</li>
+            <li>JUnit integration tests improving team-wide test coverage</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag tag-purple">Spring Boot</span>
+            <span class="tag tag-amber">AWS Lambda</span>
+            <span class="tag tag-coral">Angular</span>
+            <span class="tag tag-gray">SQL Server</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-text">Dec 2018 — Aug 2021</div>
+          <div class="exp-company">Samsung</div>
+          <div class="exp-logo" style="background:rgba(45,212,191,0.1);color:#99f6e4">SS</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Java Developer</div>
+          <div class="exp-location">📍 India</div>
+          <div class="exp-desc">Foundation years in Spring MVC, Hibernate, and MongoDB. Migrated legacy applications to modern frameworks (+20% performance). Collaborated with UI/UX to redesign interfaces, increasing user retention by 15%.</div>
+          <ul class="exp-bullets">
+            <li>Spring MVC, Dependency Injection, Hibernate HQL for data access layer</li>
+            <li>MongoDB integration for schema-less high-volume data storage</li>
+            <li>Swagger API documentation and YAML configuration management</li>
+            <li>AWS CloudWatch monitoring setup for EC2 instances</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag tag-purple">Spring MVC</span>
+            <span class="tag tag-teal">MongoDB</span>
+            <span class="tag tag-amber">CloudWatch</span>
+            <span class="tag tag-gray">Hibernate</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CI/CD Pipeline -->
+<section id="pipeline" class="pipeline-section">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-tag">// devops</span>
+      <h2 class="section-title">CI/CD Pipeline</h2>
+      <p style="color:var(--text2);margin-top:0.75rem;font-size:0.95rem;max-width:560px">A fully automated Jenkins pipeline taking code from commit to production — 10 stages with blue/green deployment and zero-downtime rollouts.</p>
+    </div>
+    <div class="pipeline-track reveal">
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(108,99,255,0.15);color:var(--accent2);border-color:rgba(108,99,255,0.3)">01</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--accent2)">Code Commit</div>
+          <div class="p-desc">Developer pushes to a feature branch (e.g. <code style="font-family:var(--font-mono);font-size:0.78rem;color:var(--teal)">feature/credit-score</code>). Webhook triggers Jenkins automatically.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(108,99,255,0.15);color:var(--accent2);border-color:rgba(108,99,255,0.3)">02</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--accent2)">Maven Build</div>
+          <div class="p-desc">Jenkins compiles Java code and packages into a JAR. Pipeline stops immediately on compile failure — fail fast.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(45,212,191,0.12);color:var(--teal);border-color:rgba(45,212,191,0.25)">03</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--teal)">Unit Tests</div>
+          <div class="p-desc">JUnit + Mockito tests run. JaCoCo enforces 85%+ coverage. Any failure blocks the pipeline.</div>
+          <div class="p-badge">85%+ coverage required</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(45,212,191,0.12);color:var(--teal);border-color:rgba(45,212,191,0.25)">04</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--teal)">SonarQube Analysis</div>
+          <div class="p-desc">Code quality gate: A rating required, zero critical issues. Scans for code smells, security vulnerabilities, bugs, and duplication.</div>
+          <div class="p-badge">A rating · zero critical issues</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(245,158,11,0.1);color:var(--amber);border-color:rgba(245,158,11,0.25)">05</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--amber)">Docker Build</div>
+          <div class="p-desc">Multi-stage Dockerfiles produce lightweight images under 200MB. Tagged with version + build number for traceability.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(245,158,11,0.1);color:var(--amber);border-color:rgba(245,158,11,0.25)">06</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--amber)">Artifactory</div>
+          <div class="p-desc">Verified images pushed to private Docker registry. Separate repositories for dev, QA, and production.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(249,115,22,0.1);color:var(--coral);border-color:rgba(249,115,22,0.2)">07</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--coral)">Deploy → Dev + Integration Tests</div>
+          <div class="p-desc">Rolling EKS deploy via <code style="font-family:var(--font-mono);font-size:0.78rem;color:var(--teal)">kubectl set image</code>, pods replaced one-by-one. RestAssured end-to-end API tests run against dev.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(249,115,22,0.1);color:var(--coral);border-color:rgba(249,115,22,0.2)">08</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--coral)">Deploy → QA</div>
+          <div class="p-desc">QA environment for manual testing — UI scenarios, edge cases, regression checks by the QA team.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.2)">09</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--green)">Blue/Green Production Deploy</div>
+          <div class="p-desc">New version deploys to green. Smoke tests run. ALB flips traffic instantly. Blue stays running as an immediate rollback option. Once stable, blue scales down.</div>
+          <div class="p-badge">Zero downtime · instant rollback</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="p-num" style="background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.2)">10</div>
+        <div class="p-content">
+          <div class="p-title" style="color:var(--green)">Slack Notifications</div>
+          <div class="p-desc">Team gets updates at each stage. Failures alert with logs. Successful prod deploys post the version and who approved it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-tag">// education</span>
+      <h2 class="section-title">Academic Background</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card masters">
+        <div class="edu-year">2023 – 2025</div>
+        <div class="edu-degree">M.S. Computer Science</div>
+        <div class="edu-school">Rivier University, New Hampshire, USA</div>
+      </div>
+      <div class="edu-card bachelors">
+        <div class="edu-year">2015 – 2019</div>
+        <div class="edu-degree">B.E. Electronics & Communication Engineering</div>
+        <div class="edu-school">Geethanjali College of Engineering and Technology, Telangana, India</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner reveal">
+    <h2>Let's Build<br>Something Together</h2>
+    <p>Open to full-time roles, contract work, and interesting projects. I respond within 24 hours.</p>
+    <div class="contact-links">
+      <a href="mailto:udaychari428@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        udaychari428@gmail.com
+      </a>
+      <a href="tel:+16038258995" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +1 (603) 825-8995
+      </a>
+      <a href="https://github.com/jajalauday" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/uday-jajala" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <code>Uday Jajala · Full Stack Java Developer · Built with HTML/CSS/JS · New Hampshire, USA</code>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
