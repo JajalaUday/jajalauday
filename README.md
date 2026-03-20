@@ -1,6 +1,6 @@
 # Hi, I'm Uday Jajala 👋
 
-I'm a Full Stack Java Developer with around 7 years of experience building scalable, production-grade web applications. I've worked across industries — banking, healthcare, automotive, and consumer electronics — and I genuinely enjoy the challenge of designing systems that are both reliable and maintainable.
+I'm a Full Stack Java Developer with around 7 years of experience building scalable, production-grade web applications. I've worked across industries — banking, automotive, and consumer electronics — and I genuinely enjoy the challenge of designing systems that are both reliable and maintainable.
 
 Right now I'm working at Citi Bank in the US, where I'm part of a team building a loan evaluation platform from the ground up. Before that I was at CVS Pharmacy, KIA Motors, and Samsung. Each role pushed me in different directions, and looking back, I think that variety is what made me a more well-rounded engineer.
 
@@ -50,10 +50,10 @@ A few things I'm particularly proud of here:
 
 ---
 
-### Java Developer — CVS Pharmacy, USA
+### Java Developer — Northern Trust, USA
 **January 2024 – May 2025**
 
-At CVS I worked heavily on the backend, specifically around event-driven architecture using Kafka. I designed producers and consumers for high-volume event streaming and set up topics, partitions, and consumer groups for fault-tolerant data processing.
+At Northern Trust I worked heavily on the backend, specifically around event-driven architecture using Kafka. I designed producers and consumers for high-volume event streaming and set up topics, partitions, and consumer groups for fault-tolerant data processing.
 
 One thing that stuck with me from this role was using Splunk to track down Kafka message failures — digging into offset IDs to figure out exactly where messages died and then building logic to reprocess them cleanly. It's unglamorous work but the kind of thing that keeps a system trustworthy.
 
