@@ -2,7 +2,7 @@
 
 I'm a Full Stack Java Developer with around 7 years of experience building scalable, production-grade web applications. I've worked across industries — banking, automotive, and consumer electronics — and I genuinely enjoy the challenge of designing systems that are both reliable and maintainable.
 
-Right now I'm working at Citi Bank in the US, where I'm part of a team building a loan evaluation platform from the ground up. Before that I was at Northern Trust, KIA Motors, and Samsung. Each role pushed me in different directions, and looking back, I think that variety is what made me a more well-rounded engineer.
+Right now I'm working at Citi Bank in the US, where I'm part of a team building a loan evaluation platform from the ground up. Before that I was at CVS Pharmacy, KIA Motors, and Samsung. Each role pushed me in different directions, and looking back, I think that variety is what made me a more well-rounded engineer.
 
 ---
 
